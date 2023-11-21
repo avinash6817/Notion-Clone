@@ -55,6 +55,25 @@ const Navigation = () => {
 
     const router = useRouter();
 
+    const resetWidth = () => {
+        if(sidebarRef.current && navbarRef.current){
+            setIsCollapsed(false);
+            setIsResetting(true);
+
+            sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+            navbarRef.current.style.setProperty(
+                "width",
+                isMobile ? "100%" : "240px"
+            );
+            navbarRef.current.style.setProperty(
+                "left",
+                isMobile ? "100%" : "240px"
+            );
+
+            setTimeout(() => setIsResetting(false),300);
+        }
+    }
+
     useEffect(() => {
         if(isMobile){
             collapse();
@@ -63,7 +82,7 @@ const Navigation = () => {
             resetWidth();
         }
 
-    }, [isMobile])
+    }, [isMobile,resetWidth])
 
     useEffect(() => {
         if(isMobile){
@@ -101,25 +120,6 @@ const Navigation = () => {
         isResizingRef.current = false;
         document.removeEventListener("mousemove",handleMouseMove);
         document.removeEventListener("mouseup",handleMouseUp);
-    }
-
-    const resetWidth = () => {
-        if(sidebarRef.current && navbarRef.current){
-            setIsCollapsed(false);
-            setIsResetting(true);
-
-            sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-            navbarRef.current.style.setProperty(
-                "width",
-                isMobile ? "100%" : "240px"
-            );
-            navbarRef.current.style.setProperty(
-                "left",
-                isMobile ? "100%" : "240px"
-            );
-
-            setTimeout(() => setIsResetting(false),300);
-        }
     }
 
     const collapse = () => {
